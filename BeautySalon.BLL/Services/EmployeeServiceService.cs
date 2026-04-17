@@ -20,6 +20,12 @@ namespace BeautySalon.BLL.Services
             this.mapper = mapper;
         }
 
+        public async Task<IEnumerable<EmployeeServiceDto>> GetAllAsync()
+        {
+            var entities = await repository.GetAllAsync();
+            return mapper.Map<IEnumerable<EmployeeServiceDto>>(entities);
+        }
+
         public async Task AddAsync(CreateEmployeeServiceDto dto)
         {
             var entity = mapper.Map<EmployeeServiceEntity>(dto);

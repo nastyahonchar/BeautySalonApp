@@ -10,17 +10,20 @@ namespace BeautySalon.BLL.Services
     {
         private readonly IRepository<Appointment> appointmentRepository;
         private readonly IRepository<Service> serviceRepository;
+        private readonly IRepository<Employee> employeeRepository;
         private readonly EmployeeServiceRepository employeeServiceRepository;
         private readonly IMapper mapper;
 
         public AppointmentService(
             IRepository<Appointment> appointmentRepository,
             IRepository<Service> serviceRepository,
+            IRepository<Employee> employeeRepository,
             EmployeeServiceRepository employeeServiceRepository,
             IMapper mapper)
         {
             this.appointmentRepository = appointmentRepository;
             this.serviceRepository = serviceRepository;
+            this.employeeRepository = employeeRepository;
             this.employeeServiceRepository = employeeServiceRepository;
             this.mapper = mapper;
         }
@@ -57,6 +60,11 @@ namespace BeautySalon.BLL.Services
             if (service == null)
                 throw new Exception("Service not found");
 
+            var employee = await employeeRepository.GetByIdAsync(dto.EmployeeId);
+
+            if (employee == null || !employee.IsActive)
+                throw new Exception("Employee not found or inactive");
+
             var entity = mapper.Map<Appointment>(dto);
 
             entity.EndTime = dto.StartTime.AddMinutes(service.DurationMinutes);
@@ -77,6 +85,14 @@ namespace BeautySalon.BLL.Services
 
             entity.StartTime = dto.StartTime;
             entity.Status = dto.Status;
+
+            var service = await serviceRepository.GetByIdAsync(entity.ServiceId);
+
+            if (service != null)
+            {
+                entity.EndTime = entity.StartTime.AddMinutes(service.DurationMinutes);
+                entity.TotalPrice = service.Price;
+            }
 
             await appointmentRepository.UpdateAsync(entity);
         }
