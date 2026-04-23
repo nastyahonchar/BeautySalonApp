@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37111.16 d17.14
+VisualStudioVersion = 17.14.37111.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalon.DAL", "BeautySalon.DAL\BeautySalon.DAL.csproj", "{46D282AB-F0A1-4C06-B1E3-6B2815D12DE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalon.BLL", "BeautySalon.BLL\BeautySalon.BLL.csproj", "{A20A3D64-839D-46DC-BD7B-5D5BD599ACFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalon.API", "BeautySalon.API\BeautySalon.API.csproj", "{19B2D56E-15B7-43A5-89BD-7968C000C86B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautySalon.MAUI", "BeautySalon.MAUI\BeautySalon.MAUI.csproj", "{8ABCC890-D8BD-4F04-92E0-70CD40411EAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,11 @@ Global
 		{19B2D56E-15B7-43A5-89BD-7968C000C86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19B2D56E-15B7-43A5-89BD-7968C000C86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19B2D56E-15B7-43A5-89BD-7968C000C86B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ABCC890-D8BD-4F04-92E0-70CD40411EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ABCC890-D8BD-4F04-92E0-70CD40411EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ABCC890-D8BD-4F04-92E0-70CD40411EAF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8ABCC890-D8BD-4F04-92E0-70CD40411EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ABCC890-D8BD-4F04-92E0-70CD40411EAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
