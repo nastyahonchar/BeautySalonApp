@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BeautySalon.MAUI.Views"
+    x:Class="BeautySalon.MAUI.Views.HomePage"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#7361E9" Offset="0.0"/>
+            <GradientStop Color="#452EB6" Offset="0.5"/>
+            <GradientStop Color="#4A2FBA" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,80">
+
+        <VerticalStackLayout Grid.Row="0" Padding="25,55,25,20">
+            <Label Text="Hello, Name!" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="Choose a category of services" FontSize="14" TextColor="White" Opacity="0.85"/>
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,0,20,10" Spacing="14">
+
+                <Frame Padding="0" CornerRadius="16" BorderColor="Transparent"
+                       HeightRequest="130" IsClippedToBounds="True">
+                    <Frame.Background>
+                        <SolidColorBrush Color="#8E8ADA"/>
+                    </Frame.Background>
+                    <Grid ColumnDefinitions="130,*">
+                        <Image Source="category_hair.png" Aspect="AspectFill">
+                            <Image.Clip>
+                                <RoundRectangleGeometry CornerRadius="16"
+                                                        Rect="0,0,130,130"/>
+                            </Image.Clip>
+                        </Image>
+                        <Label Grid.Column="1" Text="Hair Care"
+                               FontSize="18" FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="Hair Care"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame Padding="0" CornerRadius="16" BorderColor="Transparent"
+                       HeightRequest="130" IsClippedToBounds="True">
+                    <Frame.Background>
+                        <SolidColorBrush Color="#8E8ADA"/>
+                    </Frame.Background>
+                    <Grid ColumnDefinitions="130,*">
+                        <Image Grid.Column="0" Source="category_nails.png" Aspect="AspectFill">
+                            <Image.Clip>
+                                <RoundRectangleGeometry CornerRadius="16"
+                                                        Rect="0,0,130,130"/>
+                            </Image.Clip>
+                        </Image>
+                        <Label Grid.Column="1" Text="Nails"
+                               FontSize="18" FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="Nails"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame Padding="0" CornerRadius="16" BorderColor="Transparent"
+                       HeightRequest="130" IsClippedToBounds="True">
+                    <Frame.Background>
+                        <SolidColorBrush Color="#8E8ADA"/>
+                    </Frame.Background>
+                    <Grid ColumnDefinitions="130,*">
+                        <Image Grid.Column="0" Source="category_makeup.png" Aspect="AspectFill">
+                            <Image.Clip>
+                                <RoundRectangleGeometry CornerRadius="16"
+                                                        Rect="0,0,130,130"/>
+                            </Image.Clip>
+                        </Image>
+                        <Label Grid.Column="1" Text="Makeup"
+                               FontSize="18" FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="Makeup"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <views:BottomTabBar Grid.Row="2" ActiveTab="Home"/>
+
+    </Grid>
+</ContentPage>

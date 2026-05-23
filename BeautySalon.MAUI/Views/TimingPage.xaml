@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BeautySalon.MAUI.Views"
+    x:Class="BeautySalon.MAUI.Views.TimingPage"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#7361E9" Offset="0.0"/>
+            <GradientStop Color="#452EB6" Offset="0.5"/>
+            <GradientStop Color="#4A2FBA" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,Auto,80">
+
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Padding="15,50,20,15">
+            <Image Grid.Column="0"
+                   Source="icon_back_white.svg"
+                   WidthRequest="24" HeightRequest="24"
+                   VerticalOptions="Center" Margin="5,0,0,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackClicked"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Grid.Column="1"
+                   Text="Timing"
+                   FontSize="20" FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,10" Spacing="24">
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Choose date:"
+                           FontSize="15" FontAttributes="Bold"
+                           TextColor="White"/>
+                    <ScrollView Orientation="Horizontal">
+                        <HorizontalStackLayout x:Name="DaysContainer" Spacing="10"/>
+                    </ScrollView>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Available hours"
+                           FontSize="15" FontAttributes="Bold"
+                           TextColor="White"/>
+                    <VerticalStackLayout x:Name="HoursContainer" Spacing="10"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Grid Grid.Row="2" Margin="20,10,20,10" HeightRequest="56">
+            <BoxView x:Name="NextButtonBg" CornerRadius="16" BackgroundColor="#FFFFFF"/>
+            <Label x:Name="NextButtonLabel"
+                   Text="NEXT"
+                   FontSize="18" FontAttributes="Bold"
+                   TextColor="#999999"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer x:Name="NextTap" Tapped="OnNextClicked"/>
+            </Grid.GestureRecognizers>
+        </Grid>
+
+        <views:BottomTabBar Grid.Row="3" ActiveTab="Home"/>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BeautySalon.MAUI.Views"
+    x:Class="BeautySalon.MAUI.Views.MyAppointmentsPage"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#F5F8FF" Offset="0.0"/>
+            <GradientStop Color="#D8EAF8" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,80">
+
+        <VerticalStackLayout Grid.Row="0" Padding="25,55,25,10">
+            <Label Text="My Appointments"
+                   FontSize="24" FontAttributes="Bold"
+                   TextColor="#462EB7"/>
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,5" Spacing="14">
+
+                <Grid HeightRequest="130">
+                    <BoxView CornerRadius="16">
+                        <BoxView.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#715FE7" Offset="0.0"/>
+                                <GradientStop Color="#573DD2" Offset="0.5"/>
+                                <GradientStop Color="#492FB9" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </BoxView.Background>
+                    </BoxView>
+                    <VerticalStackLayout Padding="16,14" Spacing="6">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0"
+                                   Text="Type"
+                                   FontSize="16" FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Grid.Column="1"
+                                   Text="Confirmed"
+                                   FontSize="12" TextColor="#4CAF50"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                        <Label Text="Master: Name Surname" FontSize="13" TextColor="White" Opacity="0.9"/>
+                        <Label Text="Date: 00.00.0000  |  00:00" FontSize="13" TextColor="White" Opacity="0.9"/>
+                        <Label Text="Price: $0" FontSize="13" TextColor="White" Opacity="0.9"/>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <Grid HeightRequest="130">
+                    <BoxView CornerRadius="16">
+                        <BoxView.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#715FE7" Offset="0.0"/>
+                                <GradientStop Color="#573DD2" Offset="0.5"/>
+                                <GradientStop Color="#492FB9" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </BoxView.Background>
+                    </BoxView>
+                    <VerticalStackLayout Padding="16,14" Spacing="6">
+                        <Label Text="Type"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="Master: Name Surname" FontSize="13" TextColor="White" Opacity="0.9"/>
+                        <Label Text="Date: 00.00.0000  |  00:00" FontSize="13" TextColor="White" Opacity="0.9"/>
+                        <Label Text="Price: $0" FontSize="13" TextColor="White" Opacity="0.9"/>
+                    </VerticalStackLayout>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <views:BottomTabBar Grid.Row="2" ActiveTab="Appointments"/>
+
+    </Grid>
+</ContentPage>

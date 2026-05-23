@@ -1,14 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Shell
-    x:Class="BeautySalon.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:BeautySalon.MAUI"
-    Title="BeautySalon.MAUI">
+    xmlns:views="clr-namespace:BeautySalon.MAUI.Views"
+    x:Class="BeautySalon.MAUI.AppShell"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="LoginPage"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Shell.NavBarIsVisible="False"/>
+
+    <ShellContent
+        Route="HomePage"
+        ContentTemplate="{DataTemplate views:HomePage}"
+        Shell.NavBarIsVisible="False"/>
+
+    <ShellContent
+        Route="MyAppointmentsPage"
+        ContentTemplate="{DataTemplate views:MyAppointmentsPage}"
+        Shell.NavBarIsVisible="False"/>
+
+    <ShellContent
+        Route="ProfilePage"
+        ContentTemplate="{DataTemplate views:ProfilePage}"
+        Shell.NavBarIsVisible="False"/>
 
 </Shell>

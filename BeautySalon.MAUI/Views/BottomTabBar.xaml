@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BeautySalon.MAUI.Views.BottomTabBar">
+
+    <Grid BackgroundColor="White" ColumnDefinitions="*,*,*"
+          Padding="0,8,0,8" HeightRequest="80">
+
+        <VerticalStackLayout x:Name="HomeTab" Grid.Column="0"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="4">
+            <Image x:Name="HomeIconImg" Source="tab_home.svg"
+                   WidthRequest="24" HeightRequest="24" HorizontalOptions="Center"/>
+            <Label x:Name="HomeLabel" Text="Home" FontSize="11"
+                   HorizontalOptions="Center" TextColor="#462EB7" FontAttributes="Bold"/>
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnHomeTapped"/>
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout x:Name="AppointmentsTab" Grid.Column="1"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="4">
+            <Image x:Name="AppointmentsIconImg" Source="tab_appointments.svg"
+                   WidthRequest="24" HeightRequest="24" HorizontalOptions="Center"/>
+            <Label x:Name="AppointmentsLabel" Text="My Records" FontSize="11"
+                   HorizontalOptions="Center" TextColor="#999999"/>
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnAppointmentsTapped"/>
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout x:Name="ProfileTab" Grid.Column="2"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="4">
+            <Image x:Name="ProfileIconImg" Source="tab_profile.svg"
+                   WidthRequest="24" HeightRequest="24" HorizontalOptions="Center"/>
+            <Label x:Name="ProfileLabel" Text="Profile" FontSize="11"
+                   HorizontalOptions="Center" TextColor="#999999"/>
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnProfileTapped"/>
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentView>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BeautySalon.MAUI.Views"
+    x:Class="BeautySalon.MAUI.Views.ProfilePage"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#7361E9" Offset="0.0"/>
+            <GradientStop Color="#452EB6" Offset="0.5"/>
+            <GradientStop Color="#4A2FBA" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,80">
+
+        <VerticalStackLayout Grid.Row="0" Padding="25,55,25,10">
+            <Label Text="Profile" FontSize="24" FontAttributes="Bold" TextColor="White"/>
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,10" Spacing="20">
+
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center" Padding="0,10">
+                    <Frame
+                        WidthRequest="110" HeightRequest="110" CornerRadius="55"
+                        BackgroundColor="#F5E6C8" BorderColor="Transparent"
+                        Padding="0" HorizontalOptions="Center"
+                        IsClippedToBounds="True">
+                        <Image Source="avatar_placeholder.png" Aspect="AspectFill"/>
+                    </Frame>
+                    <Label Text="Alina Peterson"
+                           FontSize="20" FontAttributes="Bold"
+                           TextColor="White" HorizontalOptions="Center"/>
+                    <Label Text="Alin@gmail.com"
+                           FontSize="14" TextColor="White"
+                           Opacity="0.8" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <Frame Padding="18,16" CornerRadius="16"
+                       BackgroundColor="#DCE9FA" BorderColor="Transparent">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Personal info"
+                               FontSize="15" FontAttributes="Bold"
+                               TextColor="#1A1A1A"/>
+                        <Grid ColumnDefinitions="Auto,*"
+                              RowDefinitions="Auto,Auto,Auto"
+                              RowSpacing="10" ColumnSpacing="16">
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="Name:" FontSize="14" TextColor="#555"/>
+                            <Label Grid.Row="0" Grid.Column="1"
+                                   Text="Alina Peterson" FontSize="14" TextColor="#1A1A1A"/>
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Text="Email:" FontSize="14" TextColor="#555"/>
+                            <Label Grid.Row="1" Grid.Column="1"
+                                   Text="Alin@gmail.com" FontSize="14" TextColor="#1A1A1A"/>
+                            <Label Grid.Row="2" Grid.Column="0"
+                                   Text="Phone:" FontSize="14" TextColor="#555"/>
+                            <Label Grid.Row="2" Grid.Column="1"
+                                   Text="+380 00 000 00 00" FontSize="14" TextColor="#1A1A1A"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Padding="0" CornerRadius="16"
+                       BackgroundColor="#DCE9FA" BorderColor="Transparent"
+                       HeightRequest="55" HorizontalOptions="Fill">
+                    <Label Text="Log out"
+                           FontSize="16" FontAttributes="Bold"
+                           TextColor="#E53935"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogoutClicked"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <views:BottomTabBar Grid.Row="2" ActiveTab="Profile"/>
+
+    </Grid>
+</ContentPage>

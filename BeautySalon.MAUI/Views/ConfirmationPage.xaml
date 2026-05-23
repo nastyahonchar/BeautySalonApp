@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BeautySalon.MAUI.Views.ConfirmationPage"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#7361E9" Offset="0.0"/>
+            <GradientStop Color="#452EB6" Offset="0.5"/>
+            <GradientStop Color="#4A2FBA" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <VerticalStackLayout
+        VerticalOptions="Center"
+        Padding="30,0"
+        Spacing="30">
+
+        <Frame
+            Padding="40,50"
+            CornerRadius="20"
+            BackgroundColor="#DCE9FA"
+            BorderColor="Transparent"
+            HorizontalOptions="Fill">
+            <VerticalStackLayout Spacing="24" HorizontalOptions="Center">
+
+                <Image
+                    Source="icon_check.svg"
+                    WidthRequest="120" HeightRequest="120"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Record verified"
+                    FontSize="22" FontAttributes="Bold"
+                    TextColor="#462EB7"
+                    HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+        </Frame>
+
+        <Frame
+            Padding="0"
+            CornerRadius="14"
+            BackgroundColor="#DCE9FA"
+            BorderColor="Transparent"
+            HeightRequest="55"
+            HorizontalOptions="Fill">
+            <Label
+                Text="Go to the home"
+                FontSize="16"
+                TextColor="#462EB7"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnGoHomeClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+    </VerticalStackLayout>
+</ContentPage>
