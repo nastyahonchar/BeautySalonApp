@@ -12,6 +12,7 @@ namespace BeautySalon.DAL.Entities
 
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
+        public string? PhotoUrl { get; set; }
 
         public ICollection<Service> Services { get; set; } = new List<Service>();
     }

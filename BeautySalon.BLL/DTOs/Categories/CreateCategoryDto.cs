@@ -10,5 +10,6 @@ namespace BeautySalon.BLL.DTOs.Categories
     {
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
+        public string? PhotoUrl { get; set; }
     }
 }

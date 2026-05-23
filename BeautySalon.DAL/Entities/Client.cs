@@ -15,6 +15,7 @@ namespace BeautySalon.DAL.Entities
         public string PhoneNumber { get; set; } = null!;
         public string? Email { get; set; }
         public string? Notes { get; set; }
+        public string? PasswordHash { get; set; }
 
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }

@@ -15,8 +15,11 @@ namespace BeautySalon.DAL.Entities
         public string PhoneNumber { get; set; } = null!;
         public string Position { get; set; } = null!;
         public bool IsActive { get; set; }
+        public string? PhotoUrl { get; set; }
+        public double Rating { get; set; } = 0.0;
 
         public ICollection<EmployeeService> EmployeeServices { get; set; } = new List<EmployeeService>();
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public ICollection<EmployeeSchedule> Schedules { get; set; } = new List<EmployeeSchedule>();
     }
 }

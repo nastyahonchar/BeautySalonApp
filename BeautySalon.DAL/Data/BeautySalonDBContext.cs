@@ -21,6 +21,7 @@ namespace BeautySalon.DAL.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<EmployeeService> EmployeeServices { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<EmployeeSchedule> EmployeeSchedules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -132,6 +133,12 @@ namespace BeautySalon.DAL.Data
                 .HasOne(a => a.Service)
                 .WithMany(s => s.Appointments)
                 .HasForeignKey(a => a.ServiceId);
+
+            // EmployeeSchedule relations
+            modelBuilder.Entity<EmployeeSchedule>()
+                .HasOne(es => es.Employee)
+                .WithMany(e => e.Schedules)
+                .HasForeignKey(es => es.EmployeeId);
         }
     }
 }

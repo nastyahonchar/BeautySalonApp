@@ -9,5 +9,6 @@ namespace BeautySalon.BLL.Services.Interfaces
         Task<AppointmentDto> CreateAsync(CreateAppointmentDto dto);
         Task UpdateAsync(int id, UpdateAppointmentDto dto);
         Task DeleteAsync(int id);
+        Task<IEnumerable<string>> GetAvailableSlotsAsync(int employeeId, int serviceId, DateTime date);
     }
 }
