@@ -19,5 +19,7 @@ namespace BeautySalon.MAUI.Models
 
         public string Status { get; set; } = null!;
         public decimal TotalPrice { get; set; }
+        public string ServiceName { get; set; } = null!;
+        public string EmployeeName { get; set; } = null!;
     }
 }

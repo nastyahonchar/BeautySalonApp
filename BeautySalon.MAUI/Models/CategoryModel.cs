@@ -12,5 +12,6 @@ namespace BeautySalon.MAUI.Models
 
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
+        public string? PhotoUrl { get; set; }
     }
 }
