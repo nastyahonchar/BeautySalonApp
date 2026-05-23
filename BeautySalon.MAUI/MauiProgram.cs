@@ -1,3 +1,4 @@
+using BeautySalon.MAUI.Services;
 using Microsoft.Extensions.Logging;
 
 namespace BeautySalon.MAUI;
@@ -15,6 +16,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        //Views
         builder.Services.AddTransient<Views.LoginPage>();
         builder.Services.AddTransient<Views.HomePage>();
         builder.Services.AddTransient<Views.ServicesPage>();
@@ -23,6 +25,13 @@ public static class MauiProgram
         builder.Services.AddTransient<Views.ConfirmationPage>();
         builder.Services.AddTransient<Views.MyAppointmentsPage>();
         builder.Services.AddTransient<Views.ProfilePage>();
+
+        // Services
+        builder.Services.AddSingleton<AuthApiService>();
+        builder.Services.AddSingleton<CategoryApiService>();
+        builder.Services.AddSingleton<ServiceApiService>();
+        builder.Services.AddSingleton<EmployeeApiService>();
+        builder.Services.AddSingleton<AppointmentApiService>();
 
         builder.Services.AddSingleton<AppShell>();
 
