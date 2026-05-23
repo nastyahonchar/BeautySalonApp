@@ -22,6 +22,8 @@ builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeServiceService, EmployeeServiceService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IEmployeeScheduleService, EmployeeScheduleService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 

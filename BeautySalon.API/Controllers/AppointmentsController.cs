@@ -1,4 +1,5 @@
 ﻿using BeautySalon.BLL.DTOs.Appointments;
+using BeautySalon.BLL.Services;
 using BeautySalon.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -74,6 +75,16 @@ namespace BeautySalon.API.Controllers
 
             await service.DeleteAsync(id);
             return NoContent();
+        }
+
+        [HttpGet("available-slots")]
+        public async Task<IActionResult> GetAvailableSlots(
+            [FromQuery] int employeeId,
+            [FromQuery] int serviceId,
+            [FromQuery] DateTime date)
+        {
+            var slots = await service.GetAvailableSlotsAsync(employeeId, serviceId, date);
+            return Ok(slots);
         }
     }
 }
