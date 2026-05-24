@@ -77,6 +77,13 @@ namespace BeautySalon.API.Controllers
             return NoContent();
         }
 
+        [HttpGet("by-client/{clientId}")]
+        public async Task<IActionResult> GetByClient(int clientId)
+        {
+            var result = await service.GetByClientIdAsync(clientId);
+            return Ok(result);
+        }
+
         [HttpGet("available-slots")]
         public async Task<IActionResult> GetAvailableSlots(
             [FromQuery] int employeeId,

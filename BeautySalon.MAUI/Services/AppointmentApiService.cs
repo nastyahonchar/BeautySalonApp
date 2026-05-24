@@ -14,7 +14,7 @@ namespace BeautySalon.MAUI.Services
         public async Task<List<AppointmentModel>?> GetByClientAsync(int clientId)
         {
             return await GetAsync<List<AppointmentModel>>(
-                $"appointments?clientId={clientId}");
+                $"appointments/by-client/{clientId}");
         }
 
         public async Task<AppointmentModel?> CreateAsync(

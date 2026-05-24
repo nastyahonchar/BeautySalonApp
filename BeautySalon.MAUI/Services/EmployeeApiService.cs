@@ -6,7 +6,7 @@ namespace BeautySalon.MAUI.Services
     {
         public async Task<List<EmployeeModel>?> GetByServiceAsync(int serviceId)
         {
-            return await GetAsync<List<EmployeeModel>>($"employees?serviceId={serviceId}");
+            return await GetAsync<List<EmployeeModel>>($"employees/by-service/{serviceId}");
         }
     }
 }

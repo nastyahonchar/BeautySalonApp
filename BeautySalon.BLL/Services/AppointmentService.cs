@@ -105,6 +105,13 @@ namespace BeautySalon.BLL.Services
             await appointmentRepository.DeleteAsync(id);
         }
 
+        public async Task<IEnumerable<AppointmentDto>> GetByClientIdAsync(int clientId)
+        {
+            var all = await appointmentRepository.GetAllAsync();
+            var filtered = all.Where(a => a.ClientId == clientId);
+            return mapper.Map<IEnumerable<AppointmentDto>>(filtered);
+        }
+
         public async Task<IEnumerable<string>> GetAvailableSlotsAsync(int employeeId, int serviceId, DateTime date)
         {
             var schedules = await scheduleRepository.GetAllAsync();
