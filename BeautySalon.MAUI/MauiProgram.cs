@@ -1,4 +1,6 @@
 using BeautySalon.MAUI.Services;
+using BeautySalon.MAUI.Views;
+using BeautySalon.MAUI.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace BeautySalon.MAUI;
@@ -17,14 +19,15 @@ public static class MauiProgram
             });
 
         //Views
-        builder.Services.AddTransient<Views.LoginPage>();
-        builder.Services.AddTransient<Views.HomePage>();
-        builder.Services.AddTransient<Views.ServicesPage>();
-        builder.Services.AddTransient<Views.MastersPage>();
-        builder.Services.AddTransient<Views.TimingPage>();
-        builder.Services.AddTransient<Views.ConfirmationPage>();
-        builder.Services.AddTransient<Views.MyAppointmentsPage>();
-        builder.Services.AddTransient<Views.ProfilePage>();
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<ServicesPage>();
+        builder.Services.AddTransient<MastersPage>();
+        builder.Services.AddTransient<TimingPage>();
+        builder.Services.AddTransient<ConfirmationPage>();
+        builder.Services.AddTransient<MyAppointmentsPage>();
+        builder.Services.AddTransient<ProfilePage>();
+        builder.Services.AddTransient<RegisterPage>();
 
         // Services
         builder.Services.AddSingleton<AuthApiService>();
@@ -32,6 +35,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<ServiceApiService>();
         builder.Services.AddSingleton<EmployeeApiService>();
         builder.Services.AddSingleton<AppointmentApiService>();
+
+        // ViewModels
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<RegisterViewModel>();
 
         builder.Services.AddSingleton<AppShell>();
 

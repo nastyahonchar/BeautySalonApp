@@ -1,24 +1,25 @@
+using BeautySalon.MAUI.ViewModels;
+
 namespace BeautySalon.MAUI.Views;
 
 public partial class LoginPage : ContentPage
 {
-    public LoginPage()
+    private readonly LoginViewModel viewModel;
+
+    public LoginPage(LoginViewModel viewModel)
     {
         InitializeComponent();
+        this.viewModel = viewModel;
+        BindingContext = viewModel;
     }
 
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-        var email = EmailEntry.Text?.Trim();
-        var password = PasswordEntry.Text;
-
-        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-        {
-            await DisplayAlert("Error", "Please fill in all fields.", "OK");
-            return;
-        }
-
-        await Shell.Current.GoToAsync("//HomePage");
+        var success = await viewModel.LoginAsync();
+        if (success)
+            await Shell.Current.GoToAsync("//HomePage");
+        else
+            await DisplayAlert("Error", viewModel.ErrorMessage, "OK");
     }
 
     private async void OnSignUpClicked(object sender, EventArgs e)

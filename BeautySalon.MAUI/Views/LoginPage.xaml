@@ -44,7 +44,7 @@
                            Source="icon_email.svg"
                            WidthRequest="20" HeightRequest="20"
                            VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" x:Name="EmailEntry"
+                    <Entry Grid.Column="1" x:Name="EmailEntry" Text="{Binding Email}"
                            Placeholder="name@example.com" Keyboard="Email"
                            PlaceholderColor="#AAAAAA" TextColor="Black"
                            BackgroundColor="Transparent" VerticalOptions="Center"/>
@@ -60,7 +60,7 @@
                            Source="icon_lock.svg"
                            WidthRequest="20" HeightRequest="20"
                            VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" x:Name="PasswordEntry"
+                    <Entry Grid.Column="1" x:Name="PasswordEntry" Text="{Binding Password}"
                            Placeholder="••••••••" IsPassword="True"
                            PlaceholderColor="#AAAAAA" TextColor="Black"
                            BackgroundColor="Transparent" VerticalOptions="Center"/>

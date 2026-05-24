@@ -6,7 +6,7 @@ namespace BeautySalon.MAUI.Services
     public class ApiService
     {
         private readonly HttpClient httpClient;
-        private const string BaseUrl = "http://192.168.0.163:5000/api/";
+        private const string BaseUrl = "http://192.168.0.163:5067/api/";
 
         private static readonly JsonSerializerOptions jsonOptions = new()
         {
@@ -42,16 +42,20 @@ namespace BeautySalon.MAUI.Services
             try
             {
                 var json = JsonSerializer.Serialize(body);
+                System.Diagnostics.Debug.WriteLine($"POST {endpoint}: {json}");
+
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync(endpoint, content);
 
-                if (!response.IsSuccessStatusCode) return default;
-
                 var responseJson = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"Response {response.StatusCode}: {responseJson}");
+
+                if (!response.IsSuccessStatusCode) return default;
                 return JsonSerializer.Deserialize<T>(responseJson, jsonOptions);
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
                 return default;
             }
         }

@@ -38,7 +38,7 @@
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Image Grid.Column="0" Source="icon_user.svg"
                            WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" x:Name="FirstNameEntry"
+                    <Entry Grid.Column="1" x:Name="FirstNameEntry" Text="{Binding FirstName}"
                            Placeholder="Anna" PlaceholderColor="#AAAAAA"
                            TextColor="Black" BackgroundColor="Transparent"
                            VerticalOptions="Center"/>
@@ -51,7 +51,7 @@
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Image Grid.Column="0" Source="icon_user.svg"
                            WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" x:Name="LastNameEntry"
+                    <Entry Grid.Column="1" x:Name="LastNameEntry" Text="{Binding LastName}"
                            Placeholder="Peterson" PlaceholderColor="#AAAAAA"
                            TextColor="Black" BackgroundColor="Transparent"
                            VerticalOptions="Center"/>
@@ -64,7 +64,7 @@
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Image Grid.Column="0" Source="icon_phone.png"
                            WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" x:Name="PhoneEntry"
+                    <Entry Grid.Column="1" x:Name="PhoneEntry" Text="{Binding Phone}"
                            Placeholder="+380 00 000 00 00"
                            Keyboard="Telephone"
                            PlaceholderColor="#AAAAAA" TextColor="Black"
@@ -78,7 +78,7 @@
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Image Grid.Column="0" Source="icon_email.svg"
                            WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" x:Name="EmailEntry"
+                    <Entry Grid.Column="1" x:Name="EmailEntry" Text="{Binding Email}"
                            Placeholder="name@example.com" Keyboard="Email"
                            PlaceholderColor="#AAAAAA" TextColor="Black"
                            BackgroundColor="Transparent" VerticalOptions="Center"/>
@@ -91,7 +91,7 @@
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                     <Image Grid.Column="0" Source="icon_lock.svg"
                            WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                    <Entry Grid.Column="1" x:Name="PasswordEntry"
+                    <Entry Grid.Column="1" x:Name="PasswordEntry" Text="{Binding Password}"
                            Placeholder="••••••••" IsPassword="True"
                            PlaceholderColor="#AAAAAA" TextColor="Black"
                            BackgroundColor="Transparent" VerticalOptions="Center"/>
