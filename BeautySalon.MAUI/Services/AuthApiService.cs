@@ -4,6 +4,10 @@ namespace BeautySalon.MAUI.Services
 {
     public class AuthApiService : ApiService
     {
+        public AuthApiService(HttpClient httpClient) : base(httpClient)
+        {
+        }
+
         public async Task<ClientModel?> LoginAsync(string email, string password)
         {
             return await PostAsync<ClientModel>("auth/login", new

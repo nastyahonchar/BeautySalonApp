@@ -31,163 +31,65 @@
                    HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20,5" Spacing="14">
+        <ActivityIndicator
+            Grid.Row="1"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            Color="#573DD2"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
 
-                <Frame x:Name="MasterCard1" Padding="12" CornerRadius="14"
-                       BackgroundColor="#DCE9FA" BorderColor="Transparent">
-                    <Grid ColumnDefinitions="100,*" ColumnSpacing="12">
-                        <Frame Grid.Column="0" Padding="0" CornerRadius="10"
-                               BorderColor="Transparent" BackgroundColor="#D0D0D0"
-                               WidthRequest="100" HeightRequest="100"
-                               IsClippedToBounds="True">
-                            <Image x:Name="MasterPhoto1" Source="master1.svg"
-                                   Aspect="AspectFill"/>
-                        </Frame>
-                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="MasterName1" Text="Name Surname"
-                                   FontSize="15" FontAttributes="Bold" TextColor="#1A1A1A"/>
-                            <Label x:Name="MasterDegree1" Text="Master's degree"
-                                   FontSize="13" TextColor="#555"/>
-                            <Label x:Name="MasterRating1" Text="Rating: ⭐ 0.0"
-                                   FontSize="13" TextColor="#555"/>
-                            <Grid HeightRequest="36" Margin="0,4,0,0">
-                                <BoxView CornerRadius="18">
-                                    <BoxView.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                            <GradientStop Color="#715FE7" Offset="0.0"/>
-                                            <GradientStop Color="#573DD2" Offset="0.5"/>
-                                            <GradientStop Color="#492FB9" Offset="1.0"/>
-                                        </LinearGradientBrush>
-                                    </BoxView.Background>
-                                </BoxView>
-                                <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                       TextColor="White"
-                                       HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnMasterSelected" CommandParameter="1"/>
-                                </Grid.GestureRecognizers>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Frame>
-
-                <Frame x:Name="MasterCard2" Padding="12" CornerRadius="14"
-                       BackgroundColor="#DCE9FA" BorderColor="Transparent">
-                    <Grid ColumnDefinitions="100,*" ColumnSpacing="12">
-                        <Frame Grid.Column="0" Padding="0" CornerRadius="10"
-                               BorderColor="Transparent" BackgroundColor="#D0D0D0"
-                               WidthRequest="100" HeightRequest="100"
-                               IsClippedToBounds="True">
-                            <Image x:Name="MasterPhoto2" Source="master2.svg"
-                                   Aspect="AspectFill"/>
-                        </Frame>
-                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="MasterName2" Text="Name Surname"
-                                   FontSize="15" FontAttributes="Bold" TextColor="#1A1A1A"/>
-                            <Label x:Name="MasterDegree2" Text="Master's degree"
-                                   FontSize="13" TextColor="#555"/>
-                            <Label x:Name="MasterRating2" Text="Rating: ⭐ 0.0"
-                                   FontSize="13" TextColor="#555"/>
-                            <Grid HeightRequest="36" Margin="0,4,0,0">
-                                <BoxView CornerRadius="18">
-                                    <BoxView.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                            <GradientStop Color="#715FE7" Offset="0.0"/>
-                                            <GradientStop Color="#573DD2" Offset="0.5"/>
-                                            <GradientStop Color="#492FB9" Offset="1.0"/>
-                                        </LinearGradientBrush>
-                                    </BoxView.Background>
-                                </BoxView>
-                                <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                       TextColor="White"
-                                       HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnMasterSelected" CommandParameter="2"/>
-                                </Grid.GestureRecognizers>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Frame>
-
-                <Frame x:Name="MasterCard3" Padding="12" CornerRadius="14"
-                       BackgroundColor="#DCE9FA" BorderColor="Transparent">
-                    <Grid ColumnDefinitions="100,*" ColumnSpacing="12">
-                        <Frame Grid.Column="0" Padding="0" CornerRadius="10"
-                               BorderColor="Transparent" BackgroundColor="#D0D0D0"
-                               WidthRequest="100" HeightRequest="100"
-                               IsClippedToBounds="True">
-                            <Image x:Name="MasterPhoto3" Source="master3.svg"
-                                   Aspect="AspectFill"/>
-                        </Frame>
-                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="MasterName3" Text="Name Surname"
-                                   FontSize="15" FontAttributes="Bold" TextColor="#1A1A1A"/>
-                            <Label x:Name="MasterDegree3" Text="Master's degree"
-                                   FontSize="13" TextColor="#555"/>
-                            <Label x:Name="MasterRating3" Text="Rating: ⭐ 0.0"
-                                   FontSize="13" TextColor="#555"/>
-                            <Grid HeightRequest="36" Margin="0,4,0,0">
-                                <BoxView CornerRadius="18">
-                                    <BoxView.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                            <GradientStop Color="#715FE7" Offset="0.0"/>
-                                            <GradientStop Color="#573DD2" Offset="0.5"/>
-                                            <GradientStop Color="#492FB9" Offset="1.0"/>
-                                        </LinearGradientBrush>
-                                    </BoxView.Background>
-                                </BoxView>
-                                <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                       TextColor="White"
-                                       HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnMasterSelected" CommandParameter="3"/>
-                                </Grid.GestureRecognizers>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Frame>
-
-                <Frame x:Name="MasterCard4" Padding="12" CornerRadius="14"
-                       BackgroundColor="#DCE9FA" BorderColor="Transparent">
-                    <Grid ColumnDefinitions="100,*" ColumnSpacing="12">
-                        <Frame Grid.Column="0" Padding="0" CornerRadius="10"
-                               BorderColor="Transparent" BackgroundColor="#D0D0D0"
-                               WidthRequest="100" HeightRequest="100"
-                               IsClippedToBounds="True">
-                            <Image x:Name="MasterPhoto4" Source="master4.svg"
-                                   Aspect="AspectFill"/>
-                        </Frame>
-                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="MasterName4" Text="Name Surname"
-                                   FontSize="15" FontAttributes="Bold" TextColor="#1A1A1A"/>
-                            <Label x:Name="MasterDegree4" Text="Master's degree"
-                                   FontSize="13" TextColor="#555"/>
-                            <Label x:Name="MasterRating4" Text="Rating: ⭐ 0.0"
-                                   FontSize="13" TextColor="#555"/>
-                            <Grid HeightRequest="36" Margin="0,4,0,0">
-                                <BoxView CornerRadius="18">
-                                    <BoxView.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                            <GradientStop Color="#715FE7" Offset="0.0"/>
-                                            <GradientStop Color="#573DD2" Offset="0.5"/>
-                                            <GradientStop Color="#492FB9" Offset="1.0"/>
-                                        </LinearGradientBrush>
-                                    </BoxView.Background>
-                                </BoxView>
-                                <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                       TextColor="White"
-                                       HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnMasterSelected" CommandParameter="4"/>
-                                </Grid.GestureRecognizers>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Frame>
-
-            </VerticalStackLayout>
-        </ScrollView>
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Masters}"
+            IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+            Margin="20,5">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="12" CornerRadius="14"
+                           BackgroundColor="#DCE9FA" BorderColor="Transparent">
+                        <Grid ColumnDefinitions="100,*" ColumnSpacing="12">
+                            <Frame Grid.Column="0" Padding="0" CornerRadius="10"
+                                   BorderColor="Transparent" BackgroundColor="#D0D0D0"
+                                   WidthRequest="100" HeightRequest="100"
+                                   IsClippedToBounds="True">
+                                <Image Source="{Binding PhotoUrl}" Aspect="AspectFill"/>
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="{Binding FullName}"
+                                       FontSize="15" FontAttributes="Bold" TextColor="#1A1A1A"/>
+                                <Label Text="{Binding Position}"
+                                       FontSize="13" TextColor="#555"/>
+                                <Label Text="{Binding Rating, StringFormat='Rating: ⭐ {0:F1}'}"
+                                       FontSize="13" TextColor="#555"/>
+                                <Grid HeightRequest="36" Margin="0,4,0,0">
+                                    <BoxView CornerRadius="18">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#715FE7" Offset="0.0"/>
+                                                <GradientStop Color="#573DD2" Offset="0.5"/>
+                                                <GradientStop Color="#492FB9" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+                                    <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
+                                           TextColor="White"
+                                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="OnMasterSelected"
+                                            CommandParameter="{Binding .}"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <views:BottomTabBar Grid.Row="2" ActiveTab="Home"/>
 

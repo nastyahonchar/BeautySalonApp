@@ -37,10 +37,11 @@ namespace BeautySalon.BLL.Profiles
             // APPOINTMENT 
             CreateMap<Appointment, AppointmentDto>()
                 .ForMember(dest => dest.ServiceName,
-                           opt => opt.MapFrom(src => src.Service.Name))
+                           opt => opt.MapFrom(src => src.Service != null ? src.Service.Name : ""))
                 .ForMember(dest => dest.EmployeeName,
-                           opt => opt.MapFrom(src =>
-                               src.Employee.FirstName + " " + src.Employee.LastName));
+                           opt => opt.MapFrom(src => src.Employee != null
+                               ? src.Employee.FirstName + " " + src.Employee.LastName
+                               : ""));
             CreateMap<CreateAppointmentDto, Appointment>();
             CreateMap<UpdateAppointmentDto, Appointment>();
 

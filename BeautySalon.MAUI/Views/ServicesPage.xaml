@@ -25,142 +25,64 @@
                 </Image.GestureRecognizers>
             </Image>
             <Label Grid.Column="1"
-                   x:Name="CategoryTitleLabel"
-                   Text="Category name"
+                   Text="{Binding CategoryTitle}"
                    FontSize="20" FontAttributes="Bold"
                    TextColor="#462EB7"
                    HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20,5" Spacing="14">
+        <ActivityIndicator
+            Grid.Row="1"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            Color="#573DD2"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
 
-                <Grid x:Name="Card1" HeightRequest="120">
-                    <BoxView CornerRadius="14">
-                        <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#715FE7" Offset="0.0"/>
-                                <GradientStop Color="#573DD2" Offset="0.5"/>
-                                <GradientStop Color="#492FB9" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                    </BoxView>
-                    <Grid ColumnDefinitions="*,Auto" Padding="16,14">
-                        <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="ServiceName1" Text="Service name"
-                                   FontSize="16" FontAttributes="Bold" TextColor="White"/>
-                            <Label x:Name="ServiceDuration1" Text="Duration: 0 minutes"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                            <Label x:Name="ServicePrice1" Text="Price from: $0"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                        </VerticalStackLayout>
-                        <Frame Grid.Column="1" Padding="16,8" CornerRadius="20"
-                               BackgroundColor="White" BorderColor="Transparent"
-                               VerticalOptions="Center">
-                            <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                   TextColor="#573DD2" HorizontalOptions="Center"/>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnServiceSelected" CommandParameter="1"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
+        <CollectionView Grid.Row="1"
+                    ItemsSource="{Binding Services}"
+                    IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                    Margin="20,5">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HeightRequest="120">
+                        <BoxView CornerRadius="14">
+                            <BoxView.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#715FE7" Offset="0.0"/>
+                                    <GradientStop Color="#573DD2" Offset="0.5"/>
+                                    <GradientStop Color="#492FB9" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </BoxView.Background>
+                        </BoxView>
+                        <Grid ColumnDefinitions="*,Auto" Padding="16,14">
+                            <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
+                                <Label Text="{Binding Name}"
+                                       FontSize="16" FontAttributes="Bold" TextColor="White"/>
+                                <Label Text="{Binding DurationMinutes, StringFormat='Duration: {0} minutes'}"
+                                       FontSize="13" TextColor="White" Opacity="0.9"/>
+                                <Label Text="{Binding Price, StringFormat='Price from: ${0}'}"
+                                       FontSize="13" TextColor="White" Opacity="0.9"/>
+                            </VerticalStackLayout>
+                            <Frame Grid.Column="1" Padding="16,8" CornerRadius="20"
+                                   BackgroundColor="White" BorderColor="Transparent"
+                                   VerticalOptions="Center">
+                                <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
+                                       TextColor="#573DD2" HorizontalOptions="Center"/>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Tapped="OnServiceSelected"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </Grid>
                     </Grid>
-                </Grid>
-
-                <Grid x:Name="Card2" HeightRequest="120">
-                    <BoxView CornerRadius="14">
-                        <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#715FE7" Offset="0.0"/>
-                                <GradientStop Color="#573DD2" Offset="0.5"/>
-                                <GradientStop Color="#492FB9" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                    </BoxView>
-                    <Grid ColumnDefinitions="*,Auto" Padding="16,14">
-                        <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="ServiceName2" Text="Service name"
-                                   FontSize="16" FontAttributes="Bold" TextColor="White"/>
-                            <Label x:Name="ServiceDuration2" Text="Duration: 0 minutes"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                            <Label x:Name="ServicePrice2" Text="Price from: $0"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                        </VerticalStackLayout>
-                        <Frame Grid.Column="1" Padding="16,8" CornerRadius="20"
-                               BackgroundColor="White" BorderColor="Transparent"
-                               VerticalOptions="Center">
-                            <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                   TextColor="#573DD2" HorizontalOptions="Center"/>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnServiceSelected" CommandParameter="2"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>
-                </Grid>
-
-                <Grid x:Name="Card3" HeightRequest="120">
-                    <BoxView CornerRadius="14">
-                        <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#715FE7" Offset="0.0"/>
-                                <GradientStop Color="#573DD2" Offset="0.5"/>
-                                <GradientStop Color="#492FB9" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                    </BoxView>
-                    <Grid ColumnDefinitions="*,Auto" Padding="16,14">
-                        <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="ServiceName3" Text="Service name"
-                                   FontSize="16" FontAttributes="Bold" TextColor="White"/>
-                            <Label x:Name="ServiceDuration3" Text="Duration: 0 minutes"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                            <Label x:Name="ServicePrice3" Text="Price from: $0"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                        </VerticalStackLayout>
-                        <Frame Grid.Column="1" Padding="16,8" CornerRadius="20"
-                               BackgroundColor="White" BorderColor="Transparent"
-                               VerticalOptions="Center">
-                            <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                   TextColor="#573DD2" HorizontalOptions="Center"/>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnServiceSelected" CommandParameter="3"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>
-                </Grid>
-
-                <Grid x:Name="Card4" HeightRequest="120">
-                    <BoxView CornerRadius="14">
-                        <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#715FE7" Offset="0.0"/>
-                                <GradientStop Color="#573DD2" Offset="0.5"/>
-                                <GradientStop Color="#492FB9" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                    </BoxView>
-                    <Grid ColumnDefinitions="*,Auto" Padding="16,14">
-                        <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
-                            <Label x:Name="ServiceName4" Text="Service name"
-                                   FontSize="16" FontAttributes="Bold" TextColor="White"/>
-                            <Label x:Name="ServiceDuration4" Text="Duration: 0 minutes"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                            <Label x:Name="ServicePrice4" Text="Price from: $0"
-                                   FontSize="13" TextColor="White" Opacity="0.9"/>
-                        </VerticalStackLayout>
-                        <Frame Grid.Column="1" Padding="16,8" CornerRadius="20"
-                               BackgroundColor="White" BorderColor="Transparent"
-                               VerticalOptions="Center">
-                            <Label Text="SELECT" FontSize="13" FontAttributes="Bold"
-                                   TextColor="#573DD2" HorizontalOptions="Center"/>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnServiceSelected" CommandParameter="4"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>
-                </Grid>
-
-            </VerticalStackLayout>
-        </ScrollView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <views:BottomTabBar Grid.Row="2" ActiveTab="Home"/>
 

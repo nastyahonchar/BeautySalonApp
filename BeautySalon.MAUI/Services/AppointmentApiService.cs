@@ -4,6 +4,10 @@ namespace BeautySalon.MAUI.Services
 {
     public class AppointmentApiService : ApiService
     {
+        public AppointmentApiService(HttpClient httpClient) : base(httpClient)
+        {
+        }
+
         public async Task<List<string>?> GetAvailableSlotsAsync(
             int employeeId, int serviceId, DateTime date)
         {

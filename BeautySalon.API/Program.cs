@@ -15,6 +15,7 @@ builder.Services.AddDbContext<BeautySalonDBContext>(opt =>
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<EmployeeServiceRepository>();
+builder.Services.AddScoped<AppointmentRepository>();
 
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();

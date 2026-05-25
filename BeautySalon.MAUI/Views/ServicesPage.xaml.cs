@@ -1,71 +1,29 @@
+using BeautySalon.MAUI.Models;
+using BeautySalon.MAUI.ViewModels;
+
 namespace BeautySalon.MAUI.Views;
 
+[QueryProperty(nameof(CategoryId), "categoryId")]
 [QueryProperty(nameof(CategoryName), "categoryName")]
 public partial class ServicesPage : ContentPage
 {
-    private static readonly Dictionary<string, List<(string Name, string Duration, string Price)>> services = new()
-    {
-        ["Hair Care"] = new()
-        {
-            ("Women's Haircut",   "Duration: 60 minutes", "Price from: $60"),
-            ("Hair Coloring",     "Duration: 1:30 hours", "Price from: $85"),
-            ("Wash & Blow Dry",   "Duration: 45 minutes", "Price from: $40"),
-            ("Keratin Treatment", "Duration: 2 hours",    "Price from: $150"),
-        },
-        ["Nails"] = new()
-        {
-            ("Classic Manicure", "Duration: 45 minutes", "Price from: $25"),
-            ("Gel Manicure",     "Duration: 1:30 hours", "Price from: $50"),
-            ("Nail Extensions",  "Duration: 1:30 hours", "Price from: $85"),
-            ("Gel Removal",      "Duration: 30 minutes", "Price from: $15"),
-        },
-        ["Makeup"] = new()
-        {
-            ("Everyday Makeup", "Duration: 45 minutes", "Price from: $50"),
-            ("Evening Makeup",  "Duration: 2 hours",    "Price from: $150"),
-            ("Bridal Makeup",   "Duration: 2 hours",    "Price from: $150"),
-            ("Makeup Trial",    "Duration: 1:30 hours", "Price from: $100"),
-        },
-    };
+    private readonly ServicesViewModel viewModel;
 
+    public string CategoryId { get; set; } = "";
     public string CategoryName { get; set; } = "";
 
-    public ServicesPage()
+    public ServicesPage(ServicesViewModel viewModel)
     {
         InitializeComponent();
+        this.viewModel = viewModel;
+        BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        var category = Uri.UnescapeDataString(CategoryName ?? "");
-        CategoryTitleLabel.Text = $"Category: {category}";
-        FillServices(category);
-    }
-
-    private void FillServices(string category)
-    {
-        if (!services.TryGetValue(category, out var list)) return;
-
-        var names = new[] { ServiceName1, ServiceName2, ServiceName3, ServiceName4 };
-        var durations = new[] { ServiceDuration1, ServiceDuration2, ServiceDuration3, ServiceDuration4 };
-        var prices = new[] { ServicePrice1, ServicePrice2, ServicePrice3, ServicePrice4 };
-        var cards = new[] { Card1, Card2, Card3, Card4 };
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (i < list.Count)
-            {
-                names[i].Text = list[i].Name;
-                durations[i].Text = list[i].Duration;
-                prices[i].Text = list[i].Price;
-                cards[i].IsVisible = true;
-            }
-            else
-            {
-                cards[i].IsVisible = false;
-            }
-        }
+        if (int.TryParse(CategoryId, out int id))
+            await viewModel.LoadServicesAsync(id, Uri.UnescapeDataString(CategoryName));
     }
 
     private async void OnBackClicked(object sender, EventArgs e)
@@ -73,9 +31,10 @@ public partial class ServicesPage : ContentPage
         await Shell.Current.GoToAsync("..");
     }
 
-    private async void OnServiceSelected(object sender, EventArgs e)
+    private async void OnServiceSelected(object sender, TappedEventArgs e)
     {
-        var category = Uri.UnescapeDataString(CategoryName ?? "");
-        await Shell.Current.GoToAsync($"MastersPage?categoryName={Uri.EscapeDataString(category)}");
+        if (e.Parameter is not ServiceModel service) return;
+        await Shell.Current.GoToAsync(
+            $"MastersPage?serviceId={service.Id}&categoryName={Uri.EscapeDataString(CategoryName)}");
     }
 }

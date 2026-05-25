@@ -26,15 +26,19 @@
                 <VerticalStackLayout Spacing="10" HorizontalOptions="Center" Padding="0,10">
                     <Frame
                         WidthRequest="110" HeightRequest="110" CornerRadius="55"
-                        BackgroundColor="#F5E6C8" BorderColor="Transparent"
-                        Padding="0" HorizontalOptions="Center"
+                        BackgroundColor="#DCE9FA" BorderColor="Transparent"
+                        Padding="0" HorizontalOptions="Center" VerticalOptions="Center"
                         IsClippedToBounds="True">
-                        <Image Source="avatar_placeholder.png" Aspect="AspectFill"/>
+                        <Label
+                            Text="{Binding FirstNameInitial}" TextColor="#462EB7"
+                            FontSize="60" FontAttributes="Bold"
+                            HorizontalOptions="Center" VerticalOptions="Center"
+                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                     </Frame>
-                    <Label Text="Alina Peterson"
+                    <Label Text="{Binding FullName}"
                            FontSize="20" FontAttributes="Bold"
                            TextColor="White" HorizontalOptions="Center"/>
-                    <Label Text="Alin@gmail.com"
+                    <Label Text="{Binding Email}"
                            FontSize="14" TextColor="White"
                            Opacity="0.8" HorizontalOptions="Center"/>
                 </VerticalStackLayout>
@@ -51,15 +55,15 @@
                             <Label Grid.Row="0" Grid.Column="0"
                                    Text="Name:" FontSize="14" TextColor="#555"/>
                             <Label Grid.Row="0" Grid.Column="1"
-                                   Text="Alina Peterson" FontSize="14" TextColor="#1A1A1A"/>
+                                   Text="{Binding FullName}" FontSize="14" TextColor="#1A1A1A"/>
                             <Label Grid.Row="1" Grid.Column="0"
                                    Text="Email:" FontSize="14" TextColor="#555"/>
                             <Label Grid.Row="1" Grid.Column="1"
-                                   Text="Alin@gmail.com" FontSize="14" TextColor="#1A1A1A"/>
+                                   Text="{Binding Email}" FontSize="14" TextColor="#1A1A1A"/>
                             <Label Grid.Row="2" Grid.Column="0"
                                    Text="Phone:" FontSize="14" TextColor="#555"/>
                             <Label Grid.Row="2" Grid.Column="1"
-                                   Text="+380 00 000 00 00" FontSize="14" TextColor="#1A1A1A"/>
+                                   Text="{Binding Phone}" FontSize="14" TextColor="#1A1A1A"/>
                         </Grid>
                     </VerticalStackLayout>
                 </Frame>

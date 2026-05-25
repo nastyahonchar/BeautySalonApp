@@ -18,6 +18,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        // Http Client
+        builder.Services.AddSingleton(new HttpClient
+        {
+            BaseAddress = new Uri("http://192.168.0.163:5067/api/")
+        });
+
         //Views
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<HomePage>();
@@ -39,6 +45,12 @@ public static class MauiProgram
         // ViewModels
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<RegisterViewModel>();
+        builder.Services.AddTransient<HomeViewModel>();
+        builder.Services.AddTransient<ServicesViewModel>();
+        builder.Services.AddTransient<MastersViewModel>();
+        builder.Services.AddTransient<TimingViewModel>();
+        builder.Services.AddTransient<MyAppointmentsViewModel>();
+        builder.Services.AddTransient<ProfileViewModel>();
 
         builder.Services.AddSingleton<AppShell>();
 

@@ -17,81 +17,64 @@
     <Grid RowDefinitions="Auto,*,80">
 
         <VerticalStackLayout Grid.Row="0" Padding="25,55,25,20">
-            <Label Text="Hello, Name!" FontSize="22" FontAttributes="Bold" TextColor="White"/>
-            <Label Text="Choose a category of services" FontSize="14" TextColor="White" Opacity="0.85"/>
+            <Label x:Name="GreetingLabel"
+                   Text="Hello!"
+                   FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            <Label Text="Choose a category of services"
+                   FontSize="14" TextColor="White" Opacity="0.85"/>
         </VerticalStackLayout>
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20,0,20,10" Spacing="14">
+        <ActivityIndicator
+            Grid.Row="1"
+            x:Name="LoadingIndicator"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            Color="White"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
 
-                <Frame Padding="0" CornerRadius="16" BorderColor="Transparent"
-                       HeightRequest="130" IsClippedToBounds="True">
-                    <Frame.Background>
-                        <SolidColorBrush Color="#8E8ADA"/>
-                    </Frame.Background>
-                    <Grid ColumnDefinitions="130,*">
-                        <Image Source="category_hair.png" Aspect="AspectFill">
-                            <Image.Clip>
-                                <RoundRectangleGeometry CornerRadius="16"
-                                                        Rect="0,0,130,130"/>
-                            </Image.Clip>
-                        </Image>
-                        <Label Grid.Column="1" Text="Hair Care"
+        <CollectionView
+            Grid.Row="1"
+            x:Name="CategoriesCollection"
+            ItemsSource="{Binding Categories}"
+            IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+            Margin="20,0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="0" CornerRadius="16"
+                       BorderColor="Transparent" HeightRequest="130"
+                       IsClippedToBounds="True">
+                        <Frame.Background>
+                            <SolidColorBrush Color="#8E8ADA"/>
+                        </Frame.Background>
+                        <Grid ColumnDefinitions="130,*">
+                            <Image Grid.Column="0"
+                               Source="{Binding PhotoUrl}"
+                               Aspect="AspectFill">
+                                <Image.Clip>
+                                    <RoundRectangleGeometry CornerRadius="16"
+                                                Rect="0,0,130,130"/>
+                                </Image.Clip>
+                            </Image>
+                            <Label Grid.Column="1"
+                               Text="{Binding Name}"
                                FontSize="18" FontAttributes="Bold"
                                TextColor="White"
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Grid>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="Hair Care"/>
-                    </Frame.GestureRecognizers>
-                </Frame>
-
-                <Frame Padding="0" CornerRadius="16" BorderColor="Transparent"
-                       HeightRequest="130" IsClippedToBounds="True">
-                    <Frame.Background>
-                        <SolidColorBrush Color="#8E8ADA"/>
-                    </Frame.Background>
-                    <Grid ColumnDefinitions="130,*">
-                        <Image Grid.Column="0" Source="category_nails.png" Aspect="AspectFill">
-                            <Image.Clip>
-                                <RoundRectangleGeometry CornerRadius="16"
-                                                        Rect="0,0,130,130"/>
-                            </Image.Clip>
-                        </Image>
-                        <Label Grid.Column="1" Text="Nails"
-                               FontSize="18" FontAttributes="Bold"
-                               TextColor="White"
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Grid>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="Nails"/>
-                    </Frame.GestureRecognizers>
-                </Frame>
-
-                <Frame Padding="0" CornerRadius="16" BorderColor="Transparent"
-                       HeightRequest="130" IsClippedToBounds="True">
-                    <Frame.Background>
-                        <SolidColorBrush Color="#8E8ADA"/>
-                    </Frame.Background>
-                    <Grid ColumnDefinitions="130,*">
-                        <Image Grid.Column="0" Source="category_makeup.png" Aspect="AspectFill">
-                            <Image.Clip>
-                                <RoundRectangleGeometry CornerRadius="16"
-                                                        Rect="0,0,130,130"/>
-                            </Image.Clip>
-                        </Image>
-                        <Label Grid.Column="1" Text="Makeup"
-                               FontSize="18" FontAttributes="Bold"
-                               TextColor="White"
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Grid>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="Makeup"/>
-                    </Frame.GestureRecognizers>
-                </Frame>
-
-            </VerticalStackLayout>
-        </ScrollView>
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnCategoryTapped"
+                                CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <views:BottomTabBar Grid.Row="2" ActiveTab="Home"/>
 

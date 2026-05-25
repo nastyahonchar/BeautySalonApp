@@ -21,59 +21,72 @@
                    TextColor="#462EB7"/>
         </VerticalStackLayout>
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20,5" Spacing="14">
+        <ActivityIndicator
+            Grid.Row="1"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            Color="#573DD2"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
 
-                <Grid HeightRequest="130">
-                    <BoxView CornerRadius="16">
-                        <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="#715FE7" Offset="0.0"/>
-                                <GradientStop Color="#573DD2" Offset="0.5"/>
-                                <GradientStop Color="#492FB9" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                    </BoxView>
-                    <VerticalStackLayout Padding="16,14" Spacing="6">
-                        <Grid ColumnDefinitions="*,Auto">
-                            <Label Grid.Column="0"
-                                   Text="Type"
-                                   FontSize="16" FontAttributes="Bold"
-                                   TextColor="White"/>
-                            <Label Grid.Column="1"
-                                   Text="Confirmed"
-                                   FontSize="12" TextColor="#4CAF50"
-                                   FontAttributes="Bold"
-                                   VerticalOptions="Center"/>
-                        </Grid>
-                        <Label Text="Master: Name Surname" FontSize="13" TextColor="White" Opacity="0.9"/>
-                        <Label Text="Date: 00.00.0000  |  00:00" FontSize="13" TextColor="White" Opacity="0.9"/>
-                        <Label Text="Price: $0" FontSize="13" TextColor="White" Opacity="0.9"/>
-                    </VerticalStackLayout>
-                </Grid>
+        <VerticalStackLayout
+            Grid.Row="1"
+            IsVisible="{Binding IsEmpty}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Spacing="14">
+            <Label Text="📅" FontSize="60" HorizontalOptions="Center"/>
+            <Label Text="No appointments yet"
+                   FontSize="16" TextColor="#888"
+                   HorizontalOptions="Center"/>
+            <Label Text="Book your first service!"
+                   FontSize="14" TextColor="#aaa"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
 
-                <Grid HeightRequest="130">
-                    <BoxView CornerRadius="16">
-                        <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="#715FE7" Offset="0.0"/>
-                                <GradientStop Color="#573DD2" Offset="0.5"/>
-                                <GradientStop Color="#492FB9" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                    </BoxView>
-                    <VerticalStackLayout Padding="16,14" Spacing="6">
-                        <Label Text="Type"
-                               FontSize="16" FontAttributes="Bold"
-                               TextColor="White"/>
-                        <Label Text="Master: Name Surname" FontSize="13" TextColor="White" Opacity="0.9"/>
-                        <Label Text="Date: 00.00.0000  |  00:00" FontSize="13" TextColor="White" Opacity="0.9"/>
-                        <Label Text="Price: $0" FontSize="13" TextColor="White" Opacity="0.9"/>
-                    </VerticalStackLayout>
-                </Grid>
-
-            </VerticalStackLayout>
-        </ScrollView>
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Appointments}"
+            IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+            Margin="20,5">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="14"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HeightRequest="130">
+                        <BoxView CornerRadius="16">
+                            <BoxView.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#715FE7" Offset="0.0"/>
+                                    <GradientStop Color="#573DD2" Offset="0.5"/>
+                                    <GradientStop Color="#492FB9" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </BoxView.Background>
+                        </BoxView>
+                        <VerticalStackLayout Padding="16,14" Spacing="6">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="{Binding ServiceName}"
+                                       FontSize="16" FontAttributes="Bold"
+                                       TextColor="White"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Status}"
+                                       FontSize="12" FontAttributes="Bold"
+                                       TextColor="#4CAF50"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                            <Label Text="{Binding EmployeeName, StringFormat='Master: {0}'}"
+                                   FontSize="13" TextColor="White" Opacity="0.9"/>
+                            <Label Text="{Binding StartTime, StringFormat='Date: {0:dd.MM.yyyy  |  HH:mm}'}"
+                                   FontSize="13" TextColor="White" Opacity="0.9"/>
+                            <Label Text="{Binding TotalPrice, StringFormat='Price: ${0}'}"
+                                   FontSize="13" TextColor="White" Opacity="0.9"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <views:BottomTabBar Grid.Row="2" ActiveTab="Appointments"/>
 

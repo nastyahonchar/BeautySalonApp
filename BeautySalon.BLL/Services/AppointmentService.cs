@@ -8,7 +8,8 @@ namespace BeautySalon.BLL.Services
 {
     public class AppointmentService : IAppointmentService
     {
-        private readonly IRepository<Appointment> appointmentRepository;
+        private readonly IRepository<Appointment> repository;
+        private readonly AppointmentRepository appointmentRepository;
         private readonly IRepository<Service> serviceRepository;
         private readonly IRepository<Employee> employeeRepository;
         private readonly EmployeeServiceRepository employeeServiceRepository;
@@ -16,13 +17,15 @@ namespace BeautySalon.BLL.Services
         private readonly IRepository<EmployeeSchedule> scheduleRepository;
 
         public AppointmentService(
-            IRepository<Appointment> appointmentRepository,
+            IRepository<Appointment> repository,
+            AppointmentRepository appointmentRepository,
             IRepository<Service> serviceRepository,
             IRepository<Employee> employeeRepository,
             EmployeeServiceRepository employeeServiceRepository,
             IMapper mapper,
             IRepository<EmployeeSchedule> scheduleRepository)
         {
+            this.repository = repository;
             this.appointmentRepository = appointmentRepository;
             this.serviceRepository = serviceRepository;
             this.employeeRepository = employeeRepository;
@@ -33,13 +36,13 @@ namespace BeautySalon.BLL.Services
 
         public async Task<IEnumerable<AppointmentDto>> GetAllAsync()
         {
-            var entities = await appointmentRepository.GetAllAsync();
+            var entities = await appointmentRepository.GetAllWithDetailsAsync();
             return mapper.Map<IEnumerable<AppointmentDto>>(entities);
         }
 
         public async Task<AppointmentDto?> GetByIdAsync(int id)
         {
-            var entity = await appointmentRepository.GetByIdAsync(id);
+            var entity = await appointmentRepository.GetByIdWithDetailsAsync(id);
 
             if (entity == null)
                 return null;
@@ -74,14 +77,17 @@ namespace BeautySalon.BLL.Services
             entity.TotalPrice = service.Price;
             entity.Status = "Pending";
 
-            await appointmentRepository.AddAsync(entity);
+            await repository.AddAsync(entity);
 
-            return mapper.Map<AppointmentDto>(entity);
+            var created = await appointmentRepository
+                .GetByIdWithDetailsAsync(entity.Id);
+
+            return mapper.Map<AppointmentDto>(created);
         }
 
         public async Task UpdateAsync(int id, UpdateAppointmentDto dto)
         {
-            var entity = await appointmentRepository.GetByIdAsync(id);
+            var entity = await repository.GetByIdAsync(id);
 
             if (entity == null)
                 return;
@@ -97,19 +103,18 @@ namespace BeautySalon.BLL.Services
                 entity.TotalPrice = service.Price;
             }
 
-            await appointmentRepository.UpdateAsync(entity);
+            await repository.UpdateAsync(entity);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await appointmentRepository.DeleteAsync(id);
+            await repository.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<AppointmentDto>> GetByClientIdAsync(int clientId)
         {
-            var all = await appointmentRepository.GetAllAsync();
-            var filtered = all.Where(a => a.ClientId == clientId);
-            return mapper.Map<IEnumerable<AppointmentDto>>(filtered);
+            var entities = await appointmentRepository.GetByClientIdAsync(clientId);
+            return mapper.Map<IEnumerable<AppointmentDto>>(entities);
         }
 
         public async Task<IEnumerable<string>> GetAvailableSlotsAsync(int employeeId, int serviceId, DateTime date)
@@ -128,18 +133,22 @@ namespace BeautySalon.BLL.Services
 
             int duration = service.DurationMinutes;
 
-            var allAppointments = await appointmentRepository.GetAllAsync();
-            var dayAppointments = allAppointments
-                .Where(a => a.EmployeeId == employeeId &&
-                            a.StartTime.Date == date.Date)
-                .ToList();
+            var dayAppointments = await appointmentRepository.GetByEmployeeAndDateAsync(employeeId, date);
 
             var slots = new List<string>();
             var current = date.Date + daySchedule.WorkStart;
             var workEnd = date.Date + daySchedule.WorkEnd;
 
+            var now = DateTime.Now;
+
             while (current.AddMinutes(duration) <= workEnd)
             {
+                if (current < now)
+                {
+                    current = current.AddMinutes(30);
+                    continue;
+                }
+
                 bool isBusy = dayAppointments.Any(a =>
                     current < a.EndTime &&
                     current.AddMinutes(duration) > a.StartTime);

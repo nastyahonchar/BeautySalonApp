@@ -1,26 +1,36 @@
+using BeautySalon.MAUI.ViewModels;
+
 namespace BeautySalon.MAUI.Views;
 
+[QueryProperty(nameof(EmployeeId), "employeeId")]
+[QueryProperty(nameof(ServiceId), "serviceId")]
 public partial class TimingPage : ContentPage
 {
+    private readonly TimingViewModel viewModel;
+
+    public string EmployeeId { get; set; } = "";
+    public string ServiceId { get; set; } = "";
+
     private Frame? selectedDayFrame;
     private Frame? selectedHourFrame;
-    private bool isNextEnabled = false;
+    private DateTime selectedDate;
 
-    private readonly string[] availableHours =
-    {
-        "10:00 am", "11:00 am", "13:15 pm",
-        "14:30 pm", "16:00 pm"
-    };
-
-    public TimingPage()
+    public TimingPage(TimingViewModel viewModel)
     {
         InitializeComponent();
+        this.viewModel = viewModel;
+        BindingContext = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
         BuildDays();
-        BuildHours();
     }
 
     private void BuildDays()
     {
+        DaysContainer.Children.Clear();
         var dayNames = new[] { "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
         var today = DateTime.Today;
 
@@ -29,27 +39,15 @@ public partial class TimingPage : ContentPage
             var date = today.AddDays(i);
             var dayName = dayNames[(int)date.DayOfWeek == 0 ? 6 : (int)date.DayOfWeek - 1];
 
-            var dayLabel = new Label
-            {
-                Text = dayName,
-                FontSize = 12,
-                TextColor = Colors.White,
-                HorizontalOptions = LayoutOptions.Center
-            };
-            var numLabel = new Label
-            {
-                Text = date.Day.ToString(),
-                FontSize = 14,
-                FontAttributes = FontAttributes.Bold,
-                TextColor = Colors.White,
-                HorizontalOptions = LayoutOptions.Center
-            };
-
             var stack = new VerticalStackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
                 Spacing = 2,
-                Children = { dayLabel, numLabel }
+                Children =
+                {
+                    new Label { Text = dayName, FontSize = 12, TextColor = Colors.White, HorizontalOptions = LayoutOptions.Center },
+                    new Label { Text = date.Day.ToString(), FontSize = 14, FontAttributes = FontAttributes.Bold, TextColor = Colors.White, HorizontalOptions = LayoutOptions.Center }
+                }
             };
 
             var frame = new Frame
@@ -72,13 +70,29 @@ public partial class TimingPage : ContentPage
         }
     }
 
-    private void BuildHours()
+    private void BuildHours(List<string> slots)
     {
-        foreach (var hour in availableHours)
+        HoursContainer.Children.Clear();
+
+        if (slots.Count == 0)
+        {
+            HoursContainer.Children.Add(new Label
+            {
+                Text = "No available slots for this day",
+                FontSize = 14,
+                TextColor = Colors.White,
+                Opacity = 0.7,
+                HorizontalOptions = LayoutOptions.Center,
+                Margin = new Thickness(0, 20)
+            });
+            return;
+        }
+
+        foreach (var slot in slots)
         {
             var label = new Label
             {
-                Text = hour,
+                Text = slot,
                 FontSize = 15,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center,
@@ -94,7 +108,7 @@ public partial class TimingPage : ContentPage
                 Content = label
             };
 
-            frame.ClassId = hour;
+            frame.ClassId = slot;
 
             var tap = new TapGestureRecognizer();
             tap.Tapped += OnHourTapped;
@@ -104,7 +118,7 @@ public partial class TimingPage : ContentPage
         }
     }
 
-    private void OnDayTapped(object? sender, TappedEventArgs e)
+    private async void OnDayTapped(object? sender, TappedEventArgs e)
     {
         if (sender is not Frame tapped) return;
 
@@ -120,7 +134,16 @@ public partial class TimingPage : ContentPage
             child.TextColor = Color.FromArgb("#462EB7");
 
         selectedDayFrame = tapped;
+        selectedHourFrame = null;
         UpdateNextButton();
+
+        if (DateTime.TryParse(tapped.ClassId, out selectedDate) &&
+            int.TryParse(EmployeeId, out int empId) &&
+            int.TryParse(ServiceId, out int svcId))
+        {
+            await viewModel.LoadSlotsAsync(empId, svcId, selectedDate);
+            BuildHours(viewModel.AvailableSlots);
+        }
     }
 
     private void OnHourTapped(object? sender, TappedEventArgs e)
@@ -137,15 +160,17 @@ public partial class TimingPage : ContentPage
         ((Label)tapped.Content).TextColor = Color.FromArgb("#462EB7");
 
         selectedHourFrame = tapped;
+        viewModel.SelectedSlot = tapped.ClassId;
         UpdateNextButton();
     }
 
     private void UpdateNextButton()
     {
-        isNextEnabled = selectedDayFrame != null && selectedHourFrame != null;
-        NextButtonLabel.TextColor = isNextEnabled
+        bool ready = selectedDayFrame != null && selectedHourFrame != null;
+        NextButtonLabel.TextColor = ready
             ? Color.FromArgb("#462EB7")
             : Color.FromArgb("#999999");
+        viewModel.SelectedDate = selectedDate;
     }
 
     private async void OnBackClicked(object sender, EventArgs e)
@@ -155,7 +180,12 @@ public partial class TimingPage : ContentPage
 
     private async void OnNextClicked(object sender, TappedEventArgs e)
     {
-        if (!isNextEnabled) return;
-        await Shell.Current.GoToAsync("ConfirmationPage");
+        if (selectedDayFrame == null || selectedHourFrame == null) return;
+
+        var success = await viewModel.CreateAppointmentAsync();
+        if (success)
+            await Shell.Current.GoToAsync("ConfirmationPage");
+        else
+            await DisplayAlert("Error", viewModel.ErrorMessage, "OK");
     }
 }
